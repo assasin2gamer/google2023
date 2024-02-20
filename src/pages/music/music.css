@@ -1,0 +1,99 @@
+.music-container {
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+    width: 100%;
+  }
+  
+  .background-image-container img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+  
+  .content {
+    padding-top: 60px;
+    padding-bottom: 20px;
+    width: 100%;
+  }
+  
+  .music-intro, .live-shows, .original-works {
+    margin: auto;
+    background-color: white;
+    border-radius: 5px;
+    padding: 15px;
+    box-sizing: border-box;
+  }
+  
+  h2, h3 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .work-experience-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .react-player, .work-experience-container img, .work-experience-container iframe {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+  
+  /* Media query for larger screens */
+  @media (min-width: 768px) {
+    .music-intro, .live-shows, .original-works {
+      width: 60%; /* Adjusted width for desktop */
+      padding: 30px;
+    }
+  
+    h2, h3 {
+      font-size: 2rem; /* Larger font size for desktop */
+    }
+  
+    .work-experience-container {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 15px;
+    }
+  
+    .react-player, .work-experience-container img, .work-experience-container iframe {
+      width: auto;
+      max-width: 45%; /* Adjusted max width for a better desktop view */
+      height: 300px; /* Consistent height */
+    }
+  }
+  
+  .live-shows {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch; /* Align items vertically */
+    gap: 10px;
+    height: 100%;
+  }
+  
+  .live-show-item {
+    flex: 1; /* Each item will take equal width */
+    height: 200px; /* Set a fixed height for all items */
+    object-fit: cover; /* For images and videos */
+  }
+  
+  .react-player-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Media Query for larger screens */
+  @media (min-width: 768px) {
+    .live-show-item {
+      height: 300px; /* Larger height on wider screens */
+    }
+  }

@@ -1,0 +1,10 @@
+.expandable-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
