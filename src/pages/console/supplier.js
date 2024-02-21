@@ -5,6 +5,7 @@ import "./supplier.css"
 import { auth, db } from '../login/firebase-config'; // Adjust path as needed
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { create } from '@mui/material/styles/createTransitions';
+import { json } from 'react-router-dom';
 
 
 export const Supplier = () => {
@@ -14,16 +15,22 @@ export const Supplier = () => {
     const [perishables, setPerishables] = useState(false);
     const [udata, setUdata] = useState({});
     
+
+    useEffect(() => {
+        fetchUserData();
+    }, []);
+
     const fetchUserData = async () => {
         const docRef = doc(db, 'users', auth.currentUser.uid); // Replace 'user_id' with the actual user ID
         const docSnap = await getDoc(docRef);
-
+        
         if (docSnap.exists()) {
         setUdata(docSnap.data());
-        console.log("Document data:", docSnap.data());
+        console.log("Document data:", JSON.stringify(docSnap.data()));
         } else {
         console.log("No such document!");
         }
+        return docSnap.data();
     };
     
         
@@ -55,16 +62,19 @@ export const Supplier = () => {
     };
 
     const handleSubmit = async (e) => {
-        fetchUserData();
         e.preventDefault();
         console.log(auth.currentUser);
+        console.log(udata.address + " " + udata.coordinates)
         const userId = auth.currentUser ? auth.currentUser.uid : 'anonymous'; // Fallback if not logged in
-        const userAddress = auth.currentUser ? udata.location: 'anonymous'; // Fallback if not logged in
+        const userAddress = auth.currentUser ? udata.address: 'anonymous'; // Fallback if not logged in
+        const coordinates = auth.currentUser ? udata.coordinates: 'anonymous'; // Fallback if not logged in
+        const org = auth.currentUser ? udata.organizationName: 'anonymous'; // Fallback if not logged in
 
         const formData = {
-            
+            org,
             userId, // Include the user's ID
             userAddress,
+            coordinates,
             items,
             pickupDate,
             perishables,

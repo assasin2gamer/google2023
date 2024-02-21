@@ -1,17 +1,19 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { GoogleMap, useLoadScript } from '@react-google-maps/api';
-import { auth, db } from '../login/firebase-config'; // Adjust path as needed
-import { doc, getDoc } from 'firebase/firestore';
+import React, { useState, useEffect } from 'react';
+import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import { auth, db } from '../login/firebase-config'; // Adjust the path as needed
+import { doc, getDoc, getDocs, collection } from 'firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
 
+// Styles for the map container
 const containerStyle = {
   width: '800px',
   height: '400px',
   borderRadius: '20px',
   overflow: 'hidden',
-  margin: 'auto'
+  margin: 'auto',
 };
 
-const libraries = ['places'];
+// Google Maps API options
 const mapOptions = {
   disableDefaultUI: true,
   zoomControl: false,
@@ -20,26 +22,30 @@ const mapOptions = {
 };
 
 export const Console = () => {
-  const [center, setCenter] = useState({lat: 40.712776, lng: -74.005974});
-  const [isLoading, setIsLoading] = useState(true); // Added loading state
+  const [center, setCenter] = useState({ lat: 40.712776, lng: -74.005974 });
+  const [isLoading, setIsLoading] = useState(true);
+  const [markers, setMarkers] = useState([]);
+  const [selectedMarker, setSelectedMarker] = useState(null);
+
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyDuSLtaIOp1WGUrzVMJ4WHY14riF_oCaPQ",
-    libraries: ["places"],
+    libraries: ['places'],
   });
 
+  // Fetch user data and update center
   useEffect(() => {
+    // Listen for authentication state changes
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const userDocRef = doc(db, 'users', user.uid);
+        const userDocSnap = await getDoc(userDocRef);
 
-    
-    const fetchUserData = async () => {
-      if (auth.currentUser) {
-        const docRef = doc(db, 'users', auth.currentUser.uid);
-        const docSnap = await getDoc(docRef);
-        console.log(docSnap.data());
-        if (docSnap.exists()) {
-          const userData = docSnap.data();
-          if (docSnap.data().coordinates =! null) {
-            console.log((userData.coordinates['lat']));
-            setCenter({ lat: (docSnap.data().coordinates['lat']), lng: (docSnap.data().coordinates['lng']) });
+        if (userDocSnap.exists()) {
+          const userData = userDocSnap.data();
+          if (userData.coordinates) {
+            setCenter(userData.coordinates);
           } else {
             console.log("Latitude or longitude not found in document.");
           }
@@ -47,29 +53,97 @@ export const Console = () => {
           console.log("No such document!");
         }
       } else {
+        // User is signed out
         console.log("User not logged in.");
       }
-      setIsLoading(false); // Data fetched, loading complete
+      setIsLoading(false);
+    });
+
+    return () => unsubscribe(); // Cleanup subscription on unmount
+  }, []);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (!auth.currentUser) {
+        console.log("User not logged in.");
+        setIsLoading(false);
+        return;
+      }
+
+      const userDocRef = doc(db, 'users', auth.currentUser.uid);
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (!userDocSnap.exists()) {
+        console.log("No such document!");
+        setIsLoading(false);
+        return;
+      }
+
+      const userData = userDocSnap.data();
+      if (userData.coordinates) {
+        setCenter(userData.coordinates);
+      } else {
+        console.log("Latitude or longitude not found in document.");
+      }
+      setIsLoading(false);
     };
 
     fetchUserData();
   }, []);
 
+  // Fetch items to display as markers
+  useEffect(() => {
+    const fetchItems = async () => {
+      const querySnapshot = await getDocs(collection(db, 'Items'));
+      const markersArray = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        position: doc.data().coordinates,
+        label: doc.data().userAddress, // Adjust as needed
+        icon: { // Assuming you have an iconUrl field
+          url: doc.data().iconUrl,
+          scaledSize: new window.google.maps.Size(50, 50)
+        },
+      }));
+
+      setMarkers(markersArray);
+    };
+
+    fetchItems();
+  }, []);
+
   if (loadError) return <div>Error loading maps</div>;
-  if (!isLoaded || isLoading) return <div>Loading...</div>; // Check isLoading state
+  if (!isLoaded || isLoading) return <div>Loading...</div>;
 
   return (
     <div style={{ marginTop: '10vh', width: '100%' }}>
-      {center && ( // Ensure center is not null
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={center}
-          zoom={10}
-          options={mapOptions}
-        >
-          {/* Markers and InfoWindow here */}
-        </GoogleMap>
-      )}
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={10}
+        options={mapOptions}
+      >
+        {markers.map(marker => (
+          <Marker
+            key={marker.id}
+            position={marker.position}
+            onClick={() => setSelectedMarker(marker)}
+            label={""}
+            icon={{url:"https://firebasestorage.googleapis.com/v0/b/surc-26fb4.appspot.com/o/box.png?alt=media&token=6e11177a-0f85-49e6-b78b-21e23e3b5ae6"}}
+          />
+        ))}
+        {selectedMarker && (
+          <InfoWindow
+            position={selectedMarker.position}
+            onCloseClick={() => setSelectedMarker(null)}
+          >
+            <div>
+              <h2>{selectedMarker.label}</h2>
+              {/* Additional content for the InfoWindow */}
+              Hello
+            </div>
+          </InfoWindow>
+        )}
+      </GoogleMap>
     </div>
   );
 };
