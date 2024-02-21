@@ -42,8 +42,8 @@ export const Nav = () => {
           <NavLink to="/about" activeClassName="active-link" className="nav-link">
             About
           </NavLink>
-          <NavLink to="/coding" activeClassName="active-link" className="nav-link">
-            Work
+          <NavLink to="/console" activeClassName="active-link" className="nav-link">
+            Console
           </NavLink>
           <NavLink to="/map" activeClassName="active-link" className="nav-link">
             Map
@@ -57,7 +57,10 @@ export const Nav = () => {
         </NavLink>) : (
         <div className="profile" style={{ position: 'fixed', right: '10px', top: '40px', display:'flex'}}>
           <img src={currentUser.photoURL} alt="User profile"  style={{borderRadius:'100%', borderColor:'black', borderStyle:'solid', height:'5vh', borderWidth:'1px'}}/>
+          <NavLink to="/account" activeClassName="active-link" className="nav-link">
+
           <p style={{fontSize:'10px', paddingLeft:'10px'}}>{currentUser.displayName}</p>
+          </NavLink>
         </div>
       )
       }
