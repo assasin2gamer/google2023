@@ -3,6 +3,7 @@ import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps
 import { auth, db } from '../login/firebase-config'; // Adjust the path as needed
 import { doc, getDoc, getDocs, collection } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
+import { NavLink } from 'react-router-dom';
 
 // Styles for the map container
 const containerStyle = {
@@ -26,7 +27,7 @@ export const Console = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [markers, setMarkers] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
-
+  const [stationMarker, setStation] = useState([]);
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyDuSLtaIOp1WGUrzVMJ4WHY14riF_oCaPQ",
     libraries: ['places'],
@@ -95,6 +96,7 @@ export const Console = () => {
   useEffect(() => {
     const fetchItems = async () => {
       const querySnapshot = await getDocs(collection(db, 'Items'));
+      
       const markersArray = querySnapshot.docs.map(doc => ({
         id: doc.id,
         position: doc.data().coordinates,
@@ -104,17 +106,43 @@ export const Console = () => {
           scaledSize: new window.google.maps.Size(50, 50)
         },
       }));
+      console.log(markersArray);
 
       setMarkers(markersArray);
     };
 
     fetchItems();
   }, []);
+  useEffect(() => {
+    const fetchStations = async () => {
+      const querySnapshot = await getDocs(collection(db, 'Stations'));
+
+      const markersArray = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        position: doc.data().coordinates,
+        label: doc.data().userAddress, // Adjust as needed
+        icon: { // Assuming you have an iconUrl field
+          url: doc.data().iconUrl,
+          scaledSize: new window.google.maps.Size(50, 50)
+        },
+        
+      }
+      
+      ));
+      console.log(markersArray);
+      setStation(markersArray);
+    };
+
+    fetchStations();
+  }, []);
 
   if (loadError) return <div>Error loading maps</div>;
   if (!isLoaded || isLoading) return <div>Loading...</div>;
 
   return (
+    <div style={{backgroundColor:'#5c6f24', height:'100vh', position:'absolute', width:'100%'}}>
+
+    
     <div style={{ marginTop: '10vh', width: '100%' }}>
       <GoogleMap
         mapContainerStyle={containerStyle}
@@ -131,6 +159,17 @@ export const Console = () => {
             icon={{url:"https://firebasestorage.googleapis.com/v0/b/surc-26fb4.appspot.com/o/box.png?alt=media&token=6e11177a-0f85-49e6-b78b-21e23e3b5ae6"}}
           />
         ))}
+
+    {stationMarker.map(station => (
+          <Marker
+            key={station.id}
+            position={station.position}
+            onClick={() => setSelectedMarker(station)}
+            label={""}
+            icon={{url:"https://firebasestorage.googleapis.com/v0/b/surc-26fb4.appspot.com/o/house.png?alt=media&token=4fa451c1-281d-4798-a542-823d2641691b", scaledSize: new window.google.maps.Size(50, 50)}}
+          />
+        ))}
+
         {selectedMarker && (
           <InfoWindow
             position={selectedMarker.position}
@@ -144,6 +183,17 @@ export const Console = () => {
           </InfoWindow>
         )}
       </GoogleMap>
+            <div>
+                <NavLink to="/supplier" activeClassName="active-link" className="nav-link">
+                 <div>Add Items</div>
+                </NavLink>
+            </div>
+            <div>
+                <NavLink to="/supplier" activeClassName="active-link" className="nav-link">
+                 <div>Volunteer</div>
+                </NavLink>
+            </div>
+    </div>
     </div>
   );
 };
