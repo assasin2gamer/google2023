@@ -61,8 +61,7 @@ export const Home = () => {
 
   return (
     <div style={{ width: '100%' }}>
-      <div style={{ overflow: 'hidden', height: '100vh', position: 'absolute', width: '100vw' }}>
-        <img className="background-image" src={images[currentImage]} alt={`image${currentImage + 1}`} />
+      <div style={{ overflow: 'hidden', height: '100vh', position: 'absolute', width: '100vw', backgroundColor:'#5c6f24'}}>
       </div>
       {
         phone ?
@@ -84,8 +83,8 @@ export const Home = () => {
             <div className="text">
               <section id="banner" style={{ height: '150px', margin: 'auto', position: 'sticky' }}>
                 <div className="inner">
-                  <h2 style={{ height: '40px' }}>Stephen Junha Chang</h2>
-                  <p style={{ width: '50vw', textAlign: 'center', margin: 'auto', height: '40px' }}>Software Engineer</p>
+                  <h2 style={{ height: '40px' }}>SurChain</h2>
+                  <p style={{ width: '50vw', textAlign: 'center', margin: 'auto', height: '40px' }}>Creating a non-profit supply chain</p>
                 </div>
               </section>
             </div>
@@ -93,7 +92,6 @@ export const Home = () => {
 
             <div className="play-button" style={{ zIndex: 50, opacity: imgSwitch ? '.2' : 1 }}></div>
             <div>
-              Get Started
             </div>
           </div>
           <div className="contact-button">

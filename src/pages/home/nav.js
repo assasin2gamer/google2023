@@ -31,7 +31,7 @@ export const Nav = () => {
 
   return (
     <div style={{ position: 'absolute', width: '100%', zIndex: '20', top: '40px'}}>
-      <div style={{ width: '40vw', borderRadius: '20px', backgroundColor: isPhone ? ("transparent"):("white"), margin: 'auto', height: '40px' }}>
+      <div style={{ width: '40vw', borderRadius: '20px', backgroundColor: isPhone ? ("transparent"):("rgba(255, 255, 255, 0.34)"), margin: 'auto', height: '40px' }}>
         <div className="menu-icon" onClick={() => setMenuOpen(!isMenuOpen)}>
           <AiOutlineMenu />
         </div>
@@ -56,7 +56,7 @@ export const Nav = () => {
           Login
         </NavLink>) : (
         <div className="profile" style={{ position: 'fixed', right: '10px', top: '40px', display:'flex'}}>
-          <img src={currentUser.photoURL} alt="User profile"  style={{borderRadius:'100%', borderColor:'black', borderStyle:'solid', height:'5vh', borderWidth:'1px'}}/>
+          <img src={currentUser.photoURL} alt="User profile"  style={{borderRadius:'100%', borderColor:'black', borderStyle:'solid', height:'5vh', borderWidth:'1px', backgroundColor:'white'}}/>
           <NavLink to="/account" activeClassName="active-link" className="nav-link">
 
           <p style={{fontSize:'10px', paddingLeft:'10px'}}>{currentUser.displayName}</p>
