@@ -1,8 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-
-
+import React from 'react';
+// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import page components
 import { Home } from './pages/home/home.js';
 import { Contact } from './pages/contact/contact';
 import { Console } from './pages/console/console.js';
@@ -30,7 +31,6 @@ function App() {
             <Routes>
                 <Route exact path='/' element={<Home />} />
                 <Route path='/console' element={<Console />} />
-                <Route path='/music' element={<Music />} />
                 <Route path='/about' element={<About />} />
                 <Route path='/contact' element={<Contact />} />
                 <Route path='/login' element={<Login />} />
@@ -39,6 +39,8 @@ function App() {
                 <Route path='/supplier' element={<Supplier />} />
                 <Route path='/account' element={<Account />} />
                 <Route path='/request' element={<Request />} />
+                <Route path="*" element={<NotFound />} />
+
             </Routes>
 
         </Router>
