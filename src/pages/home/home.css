@@ -1,219 +1,62 @@
-.imgStyle {
-  object-fit: cover;
-  border-radius: 20px;
-  left: 40px;
-  position: relative;
-  height: 60px;
-  padding-top: 25px;
-}
-
-.button-container {
-  flex-direction: column; /* Stack buttons vertically */
-  align-items: center; /* Center buttons horizontally */
-  margin: auto;
+.home-wrapper {
   width: 100%;
-  
-}
-
-.contact-button {
-  position: fixed;
-  bottom: 0px;
-  left: 20px;
-  font-size: 10px;
-
-}
-.play-button{
-  color: rgb(226, 43, 43);
-  font-size: 60px;
   position: relative;
-  padding-bottom: 10px;
-  padding-top: 20px;
-  
-
-}
-.home-container {
-  width: 100%;
-}
-
-.background-container {
   overflow: hidden;
   height: 100vh;
-  position: absolute;
-  width: 100vw;
-}
-.play-button:hover{
-   opacity: 0.5;
-   cursor: pointer;
-}
-.contact-button button {
-  background-color: #007bff; /* Blue color for the button */
-  color: #fff; /* White text color */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-/* Hover effect */
-.contact-button button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
-}
-
-
-
-.button {
-  padding: 10px 20px;
-  margin: 5px;
-  border-color: black;
-  border-top-style: solid;
-  border-bottom-style: solid;
-  border-left-style: none;
-  border-right-style: none;
-  width: 200px;
-  background-color: #001a3500;
-  color: rgb(0, 0, 0); /* White text color */
-  border-width: 1px;
-  cursor: pointer;
-  font-size: 1em;
-  font-weight: 900;
-  font-family: "Roboto", sans-serif;
-}
-
-/* Hover effect */
-.button:hover {
-  background-color: #7a7a7a2f; /* Darker blue on hover */
-}
-
-
-
-#banner {
-  display: -moz-flex;
-  display: -webkit-flex;
-  display: -ms-flex;
+  background-color: #5c6f24;
   display: flex;
-  -moz-flex-direction: column;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -moz-justify-content: center;
-  -webkit-justify-content: center;
-  -ms-justify-content: center;
   justify-content: center;
-  cursor: default;
-  overflow: hidden;
-  position: relative;
+  align-items: center;
+}
+
+.logo {
+  width: 400px; /* Adjust based on your logo's dimensions */
+  transition: transform 0.3s ease;
+  height: auto;
+  position: absolute;
+  bottom: 50%;
+}
+
+.phone-warning {
+  font-size: 15px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  border-radius: 8px;
+  margin: 20px;
+}
+
+.content .container {
   text-align: center;
-}
-
-#banner h2 {
-  -moz-transform: scale(1);
-  -webkit-transform: scale(1);
-  -ms-transform: scale(1.2);
-  transform: scale();
-  -moz-transition: -moz-transform 0.5s ease-in, opacity 0.5s ease-in;
-  -webkit-transition: -webkit-transform 0.5s ease-in, opacity 0.5s ease-in;
-  -ms-transition: -ms-transform 0.5s ease-in, opacity 0.5s ease-in;
-  transition: transform 0.5s ease-in, opacity 0.5s ease-in;
-  display: inline-block;
-  font-size: 1.65em;
-  padding: 0.35em 1em;
-  position: relative;
-  letter-spacing: 0.20em;
-  text-transform: uppercase;
-  
-}
-
-#banner h2:before {
-  top: 0;
-  left: 0;
-}
-
-#banner h2:after {
-  bottom: 0;
-  right: 0;
-}
-
-#banner p {
-  letter-spacing: 0.20em;
-  text-transform: uppercase;
-  font-size: 0.5em;
-}
-
-#banner p a {
-  color: inherit;
+  margin-top: -20vh; /* Adjust based on layout */
 }
 
 .line {
-  position: absolute;
-  width: 18em;
-  height: 1px;
-  background-color: #000000;
-  transform-origin: center;
-  transform: scaleX(0);
+  height: 2px;
+  background: white;
+  width: 80%;
+  margin: 20px auto;
+  transition: all 0.5s ease;
 }
 
-.line2 {
-  position: absolute;
-  width: 0.5px;
-  height: 50px;
-  background-color: #000000;
-  transform-origin: center;
-  transform: scaleX(0);
-  left: 50%;
+#banner .inner h2, #banner .inner p {
+  color: rgb(255, 255, 255);
+
+  margin: 10px 0;
 }
 
-.text {
-  font-size: 120%;
-  color: #000000;
-  opacity: 1;
-  
-}
-
-.background-container {
-  position: absolute;
-  height: 100vh;
-  background-size: cover;
-  background-position: center;
-  animation: fadeIn 2s linear alternate;
-  z-index: inherit;
-}
-.boxout{
-  
-}
-@keyframes fadeIn {
-  0% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.background-image {
-   /* Replace with the path to your image */
-  background-image: url("../../photos/g0.jpg");
-  object-fit: cover;
-  overflow: hidden;
-  width: 100%;
-  height: 100vh; /* Adjust the height as needed */
-  position: absolute;
-  left:0;
-  transition: opacity 0.5s ease-in-out, transform 1s ease;
-  z-index: -1; /* Place the background image below other content */
-
-}
-
-
-.toggle-button {
-  color: #020202;
+.contact-button button {
+  background-color: #ffcc00; /* Example button color */
   border: none;
-  padding: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
   cursor: pointer;
-  left:0;
+  border-radius: 5px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
 }
 
-.boxout.open{
-  opacity: 1;
-}
-.boxout{
-  opacity: 0;
+.contact-button button:hover {
+  background-color: #e6b800; /* Darker shade for hover effect */
 }

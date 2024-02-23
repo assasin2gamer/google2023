@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { GoogleMap, DirectionsRenderer, DirectionsService, LoadScript } from '@react-google-maps/api';
+import { useAuth } from '../login/AuthContext'; // Adjust the import path as necessary
 
-export const Map = () => {
+export const Mapper = () => {
     const [directionsResponse, setDirectionsResponse] = useState(null);
 
     const mapContainerStyle = {
@@ -37,7 +38,7 @@ export const Map = () => {
     };
 
     return (
-        <LoadScript googleMapsApiKey="YOUR_API_KEY">
+        <LoadScript googleMapsApiKey="AIzaSyDuSLtaIOp1WGUrzVMJ4WHY14riF_oCaPQ">
             <GoogleMap
                 mapContainerStyle={mapContainerStyle}
                 center={center}
