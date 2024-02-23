@@ -18,6 +18,8 @@ export const GetStarted = () => {
     const [address, setAddress] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const autocompleteRef = useRef(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
 
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: "AIzaSyDuSLtaIOp1WGUrzVMJ4WHY14riF_oCaPQ",
@@ -126,17 +128,20 @@ export const GetStarted = () => {
     };
 
     const submitForm = async () => {
-        // Assuming the user is already logged in and we can use their UID
-
+        setIsSubmitting(true); // Indicate start of submission
         const userDocRef = doc(db, 'users', auth.currentUser.uid);
         try {
             await setDoc(userDocRef, { ...formData }, { merge: true });
             console.log("Form data successfully saved to Firestore!");
         } catch (error) {
             console.error("Error saving form data: ", error);
+            // Optionally, handle/display the error to the user here
+        } finally {
+            setIsSubmitting(false); // Reset submission state
+            navigate('/console'); // Navigate after attempting submission
         }
-        navigate('/console'); // Replace '/path-to-redirect' with your actual target path
     };
+    
     function addSpaceBeforeCapitalLetters(inputString) {
         // Replace every capital letter with a space + the capital letter,
         // except if it's at the start of the string
@@ -323,9 +328,10 @@ export const GetStarted = () => {
                                 );
                             }
                         })}
-                        <button type="button" onClick={submitForm} style={{ marginTop: "20px" }}>
-                            Submit
+                        <button type="button" onClick={submitForm} disabled={isSubmitting} style={{ marginTop: "20px" }}>
+                            {isSubmitting ? 'Submitting...' : 'Submit'}
                         </button>
+
                     </div>
                 );
         }
