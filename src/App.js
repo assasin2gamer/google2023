@@ -16,6 +16,7 @@ import {Request} from './pages/console/request'
 import {Supplier} from './pages/console/supplier'
 import {Account} from './pages/account/account'
 
+
 import { useLocation } from 'react-router-dom/dist';
 import { Nav } from './pages/home/nav';
 
@@ -39,7 +40,6 @@ function App() {
                 <Route path='/supplier' element={<Supplier />} />
                 <Route path='/account' element={<Account />} />
                 <Route path='/request' element={<Request />} />
-                <Route path="*" element={<NotFound />} />
 
             </Routes>
 
