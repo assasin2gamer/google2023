@@ -46,12 +46,59 @@ export const Supplier = () => {
     };
 
     const handleImageChange = (e, id) => {
-        // Image handling logic remains the same
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            updateItem(id, 'image', reader.result);
+        };
+        reader.readAsDataURL(file);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Form submission logic remains the same
+        console.log(auth.currentUser);
+        console.log(udata.address + " " + udata.coordinates)
+        const userId = auth.currentUser ? auth.currentUser.uid : 'anonymous'; // Fallback if not logged in
+        const userAddress = auth.currentUser ? udata.address: 'anonymous'; // Fallback if not logged in
+        const coordinates = auth.currentUser ? udata.coordinates: 'anonymous'; // Fallback if not logged in
+        const org = auth.currentUser ? udata.organizationName: 'anonymous'; // Fallback if not logged in
+
+        const formData = {
+            org,
+            userId, // Include the user's ID
+            userAddress,
+            coordinates,
+            items,
+            pickupDate,
+            perishables,
+            mustTakeAll,
+            description
+        };
+
+        function filterNumbersAndStrings(input) {
+            const regex = /^[0-9a-zA-Z]+$/;
+            return input.replace(/[^0-9a-zA-Z]/g, '');
+        }
+       
+        let currentDateTime =  new Date().toLocaleString()
+        let itemID = currentDateTime + "-" + userId
+
+    
+        // Log data for debugging purposes
+        console.log(JSON.stringify(formData, null, 2));
+        const itemRef = doc(db,"Items", filterNumbersAndStrings(itemID));
+        const userItemRef = doc(db, "users", userId, "Items", filterNumbersAndStrings(itemID));
+
+
+        try {
+            // Create a new document in Firestore in a 'submissions' collection with a unique ID
+            await setDoc(itemRef, formData);
+            await setDoc(userItemRef, formData);
+            alert('Form data successfully saved to Firestore!');
+        } catch (error) {
+            console.error("Error saving document: ", error);
+            alert('Failed to save data.');
+        }
     };
 
     return (
