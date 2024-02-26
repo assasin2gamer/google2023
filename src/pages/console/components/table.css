@@ -1,0 +1,112 @@
+.sleek-table-container {
+    overflow-x: auto;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: #ffffff; /* Light background for the container */
+    padding: 1rem; /* Padding around the table for better appearance */
+  }
+  .tab-headers {
+    margin-bottom: 10px;
+    border-color: #000000;
+}
+
+.tab-button {
+    background-color: #ffffff;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 0%;
+    color: #333;
+}
+
+.tab-button.active {
+    background-color: #5e5e5e;
+}
+  .sleek-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto; /* Center table in the container */
+  }
+  
+  .sleek-table th, .sleek-table td {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  .sleek-table th {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .sleek-table .station-row {
+    cursor: pointer;
+  }
+  
+  .sleek-table .station-row::before {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    margin-left: 25px;
+    border-left: 2px solid #333;
+    border-bottom: 2px solid #333;
+    transform: translate(-150%, 20%) rotate(-45deg); /* Adjust for the right arrow */
+    transition: transform 0.3s ease; /* Smooth transition for rotation */
+  }
+  .sleek-table .station-row::before :hover{
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    margin-left: 25px;
+    border-left: 2px solid #333;
+    border-bottom: 2px solid #333;
+    background: #333;
+    transform: translate(-150%, 20%) rotate(-45deg); /* Adjust for the right arrow */
+    transition: transform 0.3s ease; /* Smooth transition for rotation */
+  }
+  
+  .sleek-table .station-row.expanded::before {
+    transform: translate(-150%, -50%) rotate(45deg); /* Adjust for the down arrow */
+  }
+  
+  .sleek-table .request-detail-row td {
+    background-color: #e8f5e9;
+    border-top: none;
+  }
+  
+  .sleek-table .request-detail-row ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .station-info {
+    display: flex;
+    align-items: center; /* Centers the content vertically */
+  }
+  
+  .sleek-table .request-detail-row ul li {
+    padding: 4px 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .sleek-table .request-detail-row ul li:last-child {
+    border-bottom: none;
+  }
+  .sub-table {
+    width: 100%; /* Ensures the sub-table takes up the entire width of its container */
+    border-collapse: collapse; /* Collapses borders for a cleaner look */
+    margin-top: 8px; /* Adds some space above the sub-table */
+}
+
+.sub-table th, .sub-table td {
+    border: 1px solid #ddd; /* Consistent with the main table's styling */
+    text-align: left;
+    padding: 8px;
+}
+
+.sub-table th {
+    background-color: #f0f0f0; /* Slightly different from the main table for distinction */
+    color: #333;
+}

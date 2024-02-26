@@ -38,9 +38,9 @@ export const Home = () => {
           <div className="line top"></div>
           <div className="text" ref={bannerRef}>
             <section id="banner">
-              <div className="inner" style={{marginTop:'100px'}}>
+              <div className="inner" style={{marginTop:'200px'}}>
                 <h2>Sur Chain</h2>
-                <p>Creating a non-profit supply chain</p>
+                <p>Crowd-sourced supply chain for good</p>
               </div>
             </section>
           </div>

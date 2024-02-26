@@ -45,9 +45,7 @@ export const Nav = () => {
           <NavLink to="/console" activeClassName="active-link" className="nav-link">
             Console
           </NavLink>
-          <NavLink to="/map" activeClassName="active-link" className="nav-link">
-            Map
-          </NavLink>
+          
 
         </nav>
       </div>
