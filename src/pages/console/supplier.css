@@ -111,3 +111,108 @@ textarea {
     align-items: center;
     margin: 5px 0;
   }
+
+  /* Supplier.css */
+.supplier-form-container {
+  display: flex;
+  justify-content: space-between; /* Space out the two main sections */
+  padding: 20px;
+}
+
+.item-section, .summary-section {
+  flex: 1; /* Each section takes equal width */
+  margin: 10px; /* Adds some space between the sections */
+  padding: 20px;
+  border: 1px solid #ccc; /* Adds a border around each section */
+  border-radius: 8px; /* Rounds the corners */
+  background-color: #f9f9f9; /* Light background color for visibility */
+}
+
+.item-section {
+  max-width: 60%; /* Limits width to prevent it from taking too much space */
+}
+
+.summary-section {
+  max-width: 40%; /* Adjusts the width to make it narrower than the item section */
+  display: flex;
+  flex-direction: column; /* Aligns summary items vertically */
+}
+
+.summary-table {
+  margin-top: auto; /* Pushes the table to the bottom of the summary section */
+  width: 100%; /* Ensures the table uses the full width of the summary section */
+  border-collapse: collapse;
+}
+
+.summary-table th, .summary-table td {
+  border: 1px solid #ddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.summary-table th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.add-item-btn, .submit-btn {
+  cursor: pointer;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #4CAF50;
+  color: white;
+}
+
+.add-item-btn:hover, .submit-btn:hover {
+  background-color: #367a36;
+}
+
+.remove-item-btn {
+  cursor: pointer;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #ff4d4d;
+  color: white;
+}
+
+.remove-item-btn:hover {
+  background-color: #cc0000;
+}
+/* Supplier.css */
+.supplier-form-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.item-section, .summary-section {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.item-section {
+  flex: 3;
+  margin-right: 20px; /* Ensure some space between the sections */
+}
+
+.summary-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.pickup-days {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Adds some space between checkboxes */
+}
+
+.pickup-days label {
+  display: flex;
+  align-items: center;
+}

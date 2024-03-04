@@ -23,7 +23,7 @@ export const About = () => {
   }, []);
   return (
 
-    <div style={{ width: '100%', position: 'absolute', paddingTop: '100px', alignContent: 'center', margin: 'auto', overflowY: 'hidden', height: '100%' }}>
+    <div style={{ width: '100%', position: 'absolute', paddingTop: '100px', alignContent: 'center', margin: 'auto', overflowY: 'hidden', height: '100%', backgroundColor:'#5c6f24'}}>
 
     
 
